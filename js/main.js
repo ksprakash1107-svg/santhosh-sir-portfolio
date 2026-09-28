@@ -31,11 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. Initialize 3D Language Sphere
   const sphere = new GlobalLanguageSphere('sphere-3d-canvas', 'sphere-fallback-box');
 
-  // 5. Initialize Five Languages Showcase & link with Sphere
-  const languagesController = new LanguageShowcaseController(sphere);
-
-  // 6. Initialize Interactions (Scroll progress, tabs, modal, cursor)
+  // 5. Initialize Interactions (Scroll progress, tabs, modal, polyglot cursor)
   const interactions = new InteractionsController();
+
+  // 6. Initialize Five Languages Showcase & link with Sphere & Cursor
+  const languagesController = new LanguageShowcaseController(sphere, interactions.cursor);
 
   // 7. Initialize Haute-Couture Visual Effects (Magnetic buttons, Polyglot cipher, 3D card tilt)
   const magneticButtons = new MagneticButtonController();
