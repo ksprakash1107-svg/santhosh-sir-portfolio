@@ -1236,9 +1236,14 @@ dialog#enquiry-modal::backdrop {
                 background-color 0.25s ease;
   }
 
-  .neon-cursor-dot.is-visible,
+  .neon-cursor-dot.is-visible {
+    opacity: 1;
+    animation: cursorGlitterDot 2.8s ease-in-out infinite;
+  }
+
   .neon-cursor-ring.is-visible {
     opacity: 1;
+    animation: cursorGlitterRing 3.2s ease-in-out infinite;
   }
 
   .neon-cursor-ring.is-hovering {
@@ -1247,11 +1252,32 @@ dialog#enquiry-modal::backdrop {
     border-color: rgba(183, 149, 91, 0.9);
     background: radial-gradient(circle, rgba(183, 149, 91, 0.12) 0%, rgba(82, 199, 154, 0.04) 60%, transparent 80%);
     box-shadow: 0 0 18px rgba(183, 149, 91, 0.45), 0 0 28px rgba(82, 199, 154, 0.3);
+    animation: none;
   }
 
   .neon-cursor-ring.is-clicking {
     transform: translate3d(-100px, -100px, 0) translate(-50%, -50%) scale(0.78);
     border-color: #52C79A;
+  }
+
+  @keyframes cursorGlitterDot {
+    0%, 100% {
+      box-shadow: 0 0 7px #52C79A, 0 0 14px rgba(183, 149, 91, 0.8), 0 0 20px rgba(82, 199, 154, 0.35);
+    }
+    50% {
+      box-shadow: 0 0 10px #FFFFFF, 0 0 18px rgba(245, 215, 127, 0.95), 0 0 26px rgba(82, 199, 154, 0.55);
+    }
+  }
+
+  @keyframes cursorGlitterRing {
+    0%, 100% {
+      border-color: rgba(82, 199, 154, 0.65);
+      box-shadow: 0 0 10px rgba(82, 199, 154, 0.25), inset 0 0 8px rgba(183, 149, 91, 0.2);
+    }
+    50% {
+      border-color: rgba(245, 215, 127, 0.85);
+      box-shadow: 0 0 14px rgba(245, 215, 127, 0.4), 0 0 22px rgba(82, 199, 154, 0.3), inset 0 0 10px rgba(245, 215, 127, 0.25);
+    }
   }
 
   /* Fallback legacy cursor support */
