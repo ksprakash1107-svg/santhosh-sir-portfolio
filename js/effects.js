@@ -513,3 +513,110 @@ export class PolyglotPreloader {
     }, 850);
   }
 }
+
+// ============================================================
+// 6. FOOTER TEXT HOVER EFFECT (INTERACTIVE SPOTLIGHT SIGNATURE)
+// ============================================================
+
+export class FooterTextHoverEffect {
+  constructor(wrapId = 'footer-hover-wrap') {
+    this.wrap = document.getElementById(wrapId);
+    if (!this.wrap) return;
+
+    this.svg = document.getElementById('footer-text-hover-svg');
+    this.mask = document.getElementById('footerRevealMask');
+    this.animatedStroke = this.svg?.querySelector('.footer-svg-stroke-animated');
+    if (!this.svg || !this.mask) return;
+
+    this.currentX = 50;
+    this.currentY = 50;
+    this.targetX = 50;
+    this.targetY = 50;
+    this.isHovered = false;
+    this.rafId = null;
+
+    this.init();
+  }
+
+  init() {
+    this.bindEvents();
+    this.initObserver();
+    this.startLoop();
+  }
+
+  bindEvents() {
+    this.wrap.addEventListener('mousemove', (e) => {
+      const rect = this.svg.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+
+      this.isHovered = true;
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+      this.targetX = Math.max(0, Math.min(100, x));
+      this.targetY = Math.max(0, Math.min(100, y));
+    }, { passive: true });
+
+    this.wrap.addEventListener('mouseenter', () => {
+      this.isHovered = true;
+      this.mask.setAttribute('r', '26%');
+    });
+
+    this.wrap.addEventListener('mouseleave', () => {
+      this.isHovered = false;
+      this.targetX = 50;
+      this.targetY = 50;
+      this.mask.setAttribute('r', '22%');
+    });
+
+    this.wrap.addEventListener('touchmove', (e) => {
+      if (e.touches && e.touches[0]) {
+        const rect = this.svg.getBoundingClientRect();
+        const touch = e.touches[0];
+        const x = ((touch.clientX - rect.left) / rect.width) * 100;
+        const y = ((touch.clientY - rect.top) / rect.height) * 100;
+        this.targetX = Math.max(0, Math.min(100, x));
+        this.targetY = Math.max(0, Math.min(100, y));
+      }
+    }, { passive: true });
+  }
+
+  initObserver() {
+    if (!this.animatedStroke) return;
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            this.animatedStroke.classList.add('is-drawn');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      observer.observe(this.wrap);
+    } else {
+      this.animatedStroke.classList.add('is-drawn');
+    }
+  }
+
+  startLoop() {
+    const loop = () => {
+      const factor = 0.16;
+      const dx = this.targetX - this.currentX;
+      const dy = this.targetY - this.currentY;
+
+      if (Math.abs(dx) > 0.02 || Math.abs(dy) > 0.02) {
+        this.currentX += dx * factor;
+        this.currentY += dy * factor;
+        this.mask.setAttribute('cx', `${this.currentX.toFixed(2)}%`);
+        this.mask.setAttribute('cy', `${this.currentY.toFixed(2)}%`);
+      }
+
+      this.rafId = requestAnimationFrame(loop);
+    };
+
+    loop();
+  }
+}
+

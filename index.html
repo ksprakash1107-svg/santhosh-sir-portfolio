@@ -936,6 +936,7 @@
        SITE FOOTER
        ============================================================ -->
   <footer class="site-footer" role="contentinfo">
+    <div class="footer-bg-radial" aria-hidden="true"></div>
     <div class="container">
       <div class="footer-top">
         <div class="footer-brand">
@@ -969,6 +970,75 @@
             <li><a href="#" data-linkedin-link>LinkedIn Profile ↗</a></li>
           </ul>
         </div>
+      </div>
+
+      <!-- TextHoverEffect Interactive Signature -->
+      <div class="footer-hover-effect-wrap" id="footer-hover-wrap" aria-label="SANTHOSH S. interactive spotlight signature">
+        <svg
+          id="footer-text-hover-svg"
+          class="footer-text-hover-svg"
+          viewBox="0 0 400 90"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <linearGradient id="footerTextGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#B7955B" />
+              <stop offset="25%" stop-color="#F5D77F" />
+              <stop offset="50%" stop-color="#52C79A" />
+              <stop offset="75%" stop-color="#E8C170" />
+              <stop offset="100%" stop-color="#B7955B" />
+            </linearGradient>
+
+            <radialGradient id="footerRevealMask" cx="50%" cy="50%" r="24%" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="1" />
+              <stop offset="60%" stop-color="#ffffff" stop-opacity="0.85" />
+              <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+            </radialGradient>
+
+            <mask id="footerTextMask">
+              <rect x="0" y="0" width="100%" height="100%" fill="url(#footerRevealMask)" />
+            </mask>
+          </defs>
+
+          <!-- Layer 1: Ambient baseline outline stroke -->
+          <text
+            x="50%"
+            y="54%"
+            text-anchor="middle"
+            dominant-baseline="central"
+            stroke-width="0.35"
+            class="footer-svg-base-text"
+          >
+            SANTHOSH S.
+          </text>
+
+          <!-- Layer 2: Animated tracing draw stroke (dashoffset reveal) -->
+          <text
+            x="50%"
+            y="54%"
+            text-anchor="middle"
+            dominant-baseline="central"
+            stroke-width="0.35"
+            class="footer-svg-stroke-animated"
+          >
+            SANTHOSH S.
+          </text>
+
+          <!-- Layer 3: Interactive Spotlight Gradient Fill (revealed via dynamic radial mask) -->
+          <text
+            x="50%"
+            y="54%"
+            text-anchor="middle"
+            dominant-baseline="central"
+            stroke="url(#footerTextGradient)"
+            fill="url(#footerTextGradient)"
+            stroke-width="0.35"
+            mask="url(#footerTextMask)"
+            class="footer-svg-gradient-text"
+          >
+            SANTHOSH S.
+          </text>
+        </svg>
       </div>
 
       <div class="footer-bottom">

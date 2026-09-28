@@ -12,7 +12,8 @@ import {
   MagneticButtonController,
   PolyglotCipher,
   CardTiltEffect,
-  PolyglotPreloader
+  PolyglotPreloader,
+  FooterTextHoverEffect
 } from './effects.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -42,7 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const cipher = new PolyglotCipher();
   const cardTilt = new CardTiltEffect();
 
-  // 8. Handle LinkedIn Link Action
+  // 8. Initialize Footer Text Hover Effect (Spotlight Signature)
+  const footerHover = new FooterTextHoverEffect('footer-hover-wrap');
+
+  // 9. Handle LinkedIn Link Action
   setupLinkedInAction();
 
   // 9. Handle scroll target parameter if present (e.g. ?scroll=languages)

@@ -443,16 +443,107 @@ body {
 
 /* Footer */
 .site-footer {
+  position: relative;
+  overflow: hidden;
   border-top: 1px solid var(--border-subtle);
-  background-color: #0b0d0d;
+  background-color: #080C0B;
   padding: var(--space-3xl) 0 var(--space-xl) 0;
+}
+
+.footer-bg-radial {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(125% 125% at 50% 10%, rgba(10, 17, 15, 0.6) 40%, rgba(82, 199, 154, 0.08) 75%, rgba(183, 149, 91, 0.05) 100%);
+  z-index: 0;
+}
+
+.site-footer > .container {
+  position: relative;
+  z-index: 1;
 }
 
 .footer-top {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
   gap: var(--space-3xl);
-  margin-bottom: var(--space-3xl);
+  margin-bottom: var(--space-2xl);
+}
+
+/* TextHoverEffect Giant Signature SVG */
+.footer-hover-effect-wrap {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  margin: 1.5rem 0 2rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  overflow: visible;
+}
+
+.footer-text-hover-svg {
+  width: 100%;
+  max-width: 960px;
+  height: 100%;
+  overflow: visible;
+  transition: transform 0.3s ease;
+}
+
+.footer-hover-effect-wrap:hover .footer-text-hover-svg {
+  transform: scale(1.01);
+}
+
+.footer-svg-base-text {
+  fill: transparent;
+  stroke: rgba(183, 149, 91, 0.22);
+  font-family: var(--font-display, "Playfair Display", serif);
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  opacity: 0.65;
+  transition: stroke 0.4s ease, opacity 0.4s ease;
+}
+
+.footer-hover-effect-wrap:hover .footer-svg-base-text {
+  stroke: rgba(244, 240, 232, 0.45);
+  opacity: 0.85;
+}
+
+.footer-svg-stroke-animated {
+  fill: transparent;
+  stroke: #52C79A;
+  font-family: var(--font-display, "Playfair Display", serif);
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  transition: stroke-dashoffset 3.2s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: drop-shadow(0 0 8px rgba(82, 199, 154, 0.45));
+}
+
+.footer-svg-stroke-animated.is-drawn {
+  stroke-dashoffset: 0;
+}
+
+.footer-svg-gradient-text {
+  font-family: var(--font-display, "Playfair Display", serif);
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  filter: drop-shadow(0 0 16px rgba(183, 149, 91, 0.35));
+}
+
+@media (max-width: 768px) {
+  .footer-hover-effect-wrap {
+    height: 120px;
+    margin: 1rem 0 1.5rem 0;
+  }
 }
 
 .footer-brand h3 {
