@@ -15,6 +15,7 @@ import {
   PolyglotPreloader,
   FooterTextHoverEffect
 } from './effects.js';
+import { InteractiveWorksWheel } from './works-wheel.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // 0. Initialize Polyglot Genesis Preloader (5 Languages Touch)
@@ -43,10 +44,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const cipher = new PolyglotCipher();
   const cardTilt = new CardTiltEffect();
 
-  // 8. Initialize Footer Text Hover Effect (Spotlight Signature)
+  // 8. Initialize 3D Works Wheel (Institutional Drum Index)
+  const worksWheel = new InteractiveWorksWheel('works-wheel-container');
+
+  // 9. Initialize Footer Text Hover Effect (Spotlight Signature)
   const footerHover = new FooterTextHoverEffect('footer-hover-wrap');
 
-  // 9. Handle LinkedIn Link Action
+  // 10. Handle LinkedIn Link Action
   setupLinkedInAction();
 
   // 9. Handle scroll target parameter if present (e.g. ?scroll=languages)

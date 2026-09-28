@@ -1316,3 +1316,294 @@ dialog#enquiry-modal::backdrop {
     padding: 1.5rem;
   }
 }
+
+/* ============================================================
+   3D WORKS WHEEL (PORTFOLIO CYLINDER INDEX)
+   ============================================================ */
+.works-wheel-section-wrap {
+  position: relative;
+  margin-top: 3.5rem;
+  background: radial-gradient(ellipse at 50% 20%, rgba(23, 53, 47, 0.3) 0%, rgba(10, 17, 15, 0.85) 85%);
+  border: 1px solid var(--border-subtle);
+  border-radius: 24px;
+  padding: 2.5rem;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+}
+
+.works-wheel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(183, 149, 91, 0.15);
+  padding-bottom: 1rem;
+}
+
+.works-wheel-stage-container {
+  position: relative;
+  width: 100%;
+  height: 560px;
+  min-height: 480px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: rgba(8, 12, 11, 0.5);
+}
+
+.works-wheel-stage-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.works-wheel-stage {
+  position: absolute;
+  inset: 0;
+  cursor: grab;
+  outline: none;
+  touch-action: pan-x;
+}
+
+.works-wheel-stage:active {
+  cursor: grabbing;
+}
+
+.works-wheel-inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.works-wheel-card {
+  position: absolute;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.25s ease;
+  will-change: transform, opacity;
+}
+
+.works-wheel-card-face {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(183, 149, 91, 0.25);
+  background: #0F1715;
+  box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.85);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.works-wheel-card[aria-selected="true"] .works-wheel-card-face {
+  border-color: rgba(183, 149, 91, 0.7);
+  box-shadow: 0 24px 50px -12px rgba(82, 199, 154, 0.28), 0 0 25px rgba(183, 149, 91, 0.2);
+}
+
+.works-wheel-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.92) contrast(1.05);
+  transition: transform 0.6s ease;
+}
+
+.works-wheel-card:hover img {
+  transform: scale(1.05);
+}
+
+.works-wheel-card-glass {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.25rem 1.4rem;
+  background: linear-gradient(180deg, transparent 0%, rgba(10, 17, 15, 0.82) 40%, rgba(10, 17, 15, 0.98) 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.works-wheel-card-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-gold);
+  background: rgba(183, 149, 91, 0.15);
+  border: 1px solid rgba(183, 149, 91, 0.3);
+  padding: 0.2rem 0.6rem;
+  border-radius: 100px;
+}
+
+.works-wheel-card-heading {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: #FFFFFF;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.works-wheel-card-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: #52C79A;
+  margin-top: 0.25rem;
+}
+
+.works-wheel-ring-label {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display, "Playfair Display");
+  font-size: clamp(2.5rem, 5vw, 4.2rem);
+  font-weight: 700;
+  color: rgba(183, 149, 91, 0.75);
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  transition: opacity 0.3s ease;
+  text-shadow: 0 0 35px rgba(183, 149, 91, 0.3);
+}
+
+.works-wheel-front-title {
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  transform: translateY(-50%);
+  max-width: 320px;
+  transition: opacity 0.35s ease;
+  z-index: 5;
+}
+
+.works-wheel-category {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-gold);
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.works-wheel-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.2vw, 2.1rem);
+  font-weight: 700;
+  color: #F4F0E8;
+  margin: 0;
+  line-height: 1.15;
+  text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+.works-wheel-index {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 7%;
+  right: 3%;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  z-index: 10;
+  max-height: 85%;
+  overflow-y: auto;
+}
+
+.works-wheel-index-btn {
+  background: transparent;
+  border: none;
+  color: rgba(244, 240, 232, 0.5);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  transition: color 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+}
+
+.works-wheel-index-btn:hover {
+  color: #FFFFFF;
+  transform: translateX(-3px);
+}
+
+.works-wheel-index-btn.active {
+  color: #52C79A;
+  font-weight: 700;
+  background: rgba(82, 199, 154, 0.12);
+  border-right: 2px solid #52C79A;
+}
+
+.works-wheel-index-btn .wheel-num {
+  opacity: 0.65;
+  font-size: 0.7rem;
+}
+
+.works-wheel-controls-hint {
+  position: absolute;
+  bottom: 2%;
+  left: 4%;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: rgba(244, 240, 232, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.hint-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #52C79A;
+  box-shadow: 0 0 6px #52C79A;
+  display: inline-block;
+}
+
+@media (max-width: 900px) {
+  .works-wheel-front-title {
+    display: none;
+  }
+  .works-wheel-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .works-wheel-section-wrap {
+    padding: 1.5rem 1rem;
+    border-radius: 18px;
+  }
+  .works-wheel-stage-container {
+    height: 480px;
+  }
+  .works-wheel-index {
+    display: none;
+  }
+}
