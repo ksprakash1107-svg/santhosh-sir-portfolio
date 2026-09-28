@@ -1,0 +1,470 @@
+/* ============================================================
+   CINEMATIC ANIMATIONS & ENTRANCE SEQUENCE
+   ============================================================ */
+
+/* Hero Film Title Sequence */
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes heroRevealUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroPortraitEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.96) translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Entrance Sequence Timing Assignments */
+.anim-eyebrow {
+  opacity: 0;
+  animation: heroRevealUp 0.5s var(--ease-editorial) 0.05s forwards;
+}
+
+.anim-name {
+  opacity: 0;
+  animation: heroRevealUp 0.6s var(--ease-editorial) 0.1s forwards;
+}
+
+.anim-statement {
+  opacity: 0;
+  animation: heroRevealUp 0.65s var(--ease-editorial) 0.16s forwards;
+}
+
+.anim-lead {
+  opacity: 0;
+  animation: heroRevealUp 0.6s var(--ease-editorial) 0.22s forwards;
+}
+
+.anim-actions {
+  opacity: 0;
+  animation: heroRevealUp 0.6s var(--ease-editorial) 0.28s forwards;
+}
+
+.anim-portrait {
+  opacity: 0;
+  animation: heroPortraitEntrance 0.75s var(--ease-editorial) 0.12s forwards;
+}
+
+.anim-scroll-indicator {
+  opacity: 0;
+  animation: heroFadeIn 0.7s var(--ease-editorial) 0.35s forwards;
+}
+
+/* ============================================================
+   SCROLL REVEAL UTILITIES
+   ============================================================ */
+
+.reveal {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.5s var(--ease-editorial),
+              transform 0.5s var(--ease-editorial);
+}
+
+.reveal.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+.delay-0 { transition-delay: 0s; }
+.delay-1 { transition-delay: 0.08s; }
+.delay-2 { transition-delay: 0.16s; }
+.delay-3 { transition-delay: 0.24s; }
+.delay-4 { transition-delay: 0.32s; }
+
+/* Subtle Glow Pulse */
+@keyframes ambientPulse {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(1.04);
+  }
+}
+
+.hero-ambient-glow {
+  animation: ambientPulse 10s ease-in-out infinite;
+}
+
+/* ============================================================
+   HAUTE-COUTURE VISUAL EFFECTS & BUTTON ANIMATIONS
+   ============================================================ */
+
+/* 1. Luminous Rotating Border Beam for Primary Buttons */
+@keyframes rotateBeam {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* 2. Pulsating Gold Beacon Dot */
+@keyframes beaconPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(183, 149, 91, 0.7);
+  }
+  50% {
+    transform: scale(1.2);
+    box-shadow: 0 0 0 6px rgba(183, 149, 91, 0);
+  }
+}
+
+/* 3. Transcontinental Radar Ping */
+@keyframes radarPing {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.9;
+  }
+  70% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+/* 4. Geodesic Flight Trajectory Packet */
+@keyframes trajectoryStream {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+/* 5. Infinite Kinetic Marquee */
+@keyframes kineticMarquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* 6. Liquid Shimmer Sweep */
+@keyframes shimmerSweep {
+  0% {
+    transform: translateX(-100%) rotate(25deg);
+  }
+  100% {
+    transform: translateX(200%) rotate(25deg);
+  }
+}
+
+/* ============================================================
+   7. POLYGLOT GENESIS PRELOADER (5 LANGUAGES TOUCH)
+   ============================================================ */
+
+.app-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background-color: var(--color-deep-ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  user-select: none;
+  transition: transform 0.85s var(--ease-editorial), opacity 0.85s ease;
+}
+
+.app-preloader.is-exiting {
+  transform: translateY(-100%);
+  opacity: 0.95;
+  pointer-events: none;
+}
+
+.app-preloader.is-hidden {
+  display: none !important;
+}
+
+.preloader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 480px;
+  width: 90%;
+  position: relative;
+  z-index: 2;
+}
+
+/* Insignia Orbital Frame */
+.preloader-insignia-frame {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-xl);
+}
+
+.preloader-ring-outer {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px dashed rgba(183, 149, 91, 0.45);
+  animation: preloaderSpin 18s linear infinite;
+}
+
+.preloader-ring-middle {
+  position: absolute;
+  inset: 7px;
+  border-radius: 50%;
+  border: 1.5px solid transparent;
+  border-top-color: var(--color-antique-gold);
+  border-bottom-color: var(--color-antique-gold);
+  animation: preloaderSpinReverse 8s linear infinite;
+  box-shadow: 0 0 16px rgba(183, 149, 91, 0.5);
+}
+
+.preloader-monogram-core {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-xs);
+  background: rgba(23, 53, 47, 0.6);
+  border: 1px solid var(--color-antique-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--neon-gold), inset 0 0 10px rgba(183, 149, 91, 0.3);
+}
+
+.preloader-monogram-s {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: var(--color-warm-ivory);
+  text-shadow: var(--neon-text-gold);
+}
+
+/* 5-Language Welcome Cycler */
+.preloader-cycler-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 90px;
+  margin-bottom: var(--space-xl);
+}
+
+.preloader-lang-counter {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--text-gold);
+  margin-bottom: 0.5rem;
+}
+
+.preloader-greeting-viewport {
+  position: relative;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preloader-greeting-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: opacity 0.16s ease, transform 0.16s var(--ease-editorial);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.preloader-script {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 1.6rem + 1.5vw, 2.75rem);
+  font-weight: 600;
+  color: var(--color-warm-ivory);
+  letter-spacing: 0.05em;
+  line-height: 1.15;
+  text-shadow: 0 0 16px rgba(183, 149, 91, 0.55), 0 0 35px rgba(183, 149, 91, 0.3);
+  margin-bottom: 4px;
+}
+
+.preloader-phonetic {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  color: var(--text-gold);
+  text-transform: uppercase;
+}
+
+/* Progress Section */
+.preloader-progress-section {
+  width: 100%;
+  max-width: 380px;
+}
+
+.preloader-telemetry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-bottom: 0.65rem;
+}
+
+.preloader-telemetry-coords {
+  color: var(--text-gold);
+}
+
+.preloader-percent {
+  color: var(--color-warm-ivory);
+  font-weight: 600;
+}
+
+.preloader-progress-track {
+  width: 100%;
+  height: 3px;
+  background: rgba(244, 240, 232, 0.1);
+  border-radius: var(--radius-full);
+  position: relative;
+  overflow: visible;
+}
+
+.preloader-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--color-antique-gold), #FFF);
+  border-radius: var(--radius-full);
+  position: relative;
+  box-shadow: var(--neon-gold);
+  transition: width 0.08s linear;
+}
+
+.preloader-progress-beacon {
+  position: absolute;
+  right: -4px;
+  top: -3.5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  box-shadow: 0 0 10px #FFFFFF, 0 0 18px var(--color-antique-gold);
+}
+
+/* Skip Button */
+.preloader-skip-btn {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  background: transparent;
+  border: 1px solid rgba(183, 149, 91, 0.3);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  z-index: 10;
+}
+
+.preloader-skip-btn:hover {
+  color: var(--color-warm-ivory);
+  border-color: var(--color-antique-gold);
+  box-shadow: var(--neon-gold);
+}
+
+@keyframes preloaderSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes preloaderSpinReverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+/* ============================================================
+   ACCESSIBILITY: PREFERS-REDUCED-MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .anim-eyebrow,
+  .anim-name,
+  .anim-statement,
+  .anim-lead,
+  .anim-actions,
+  .anim-portrait,
+  .anim-satellite-1,
+  .anim-satellite-2,
+  .anim-satellite-3,
+  .anim-scroll-indicator {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .portrait-architectural-box:hover .portrait-img {
+    transform: none !important;
+  }
+
+  .hero-ambient-glow,
+  .btn-beam,
+  .btn-beacon,
+  .radar-ring,
+  .trajectory-packet,
+  .kinetic-marquee-track {
+    animation: none !important;
+  }
+}

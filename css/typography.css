@@ -1,0 +1,156 @@
+/* Typography Rules & Hierarchy */
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.65;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--text-primary);
+  letter-spacing: -0.015em;
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+h1 {
+  font-size: var(--text-hero);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: var(--text-3xl);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+h3 {
+  font-size: var(--text-xl);
+  font-weight: 600;
+}
+
+h4 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+/* Editorial Emphasis & Italics */
+h1 em, h2 em, h3 em, .editorial-quote em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--text-gold);
+}
+
+/* Technical Metadata, Labels & Kicker Numbers */
+.mono-label,
+.section-kicker,
+.meta-tag,
+.coordinate-tag,
+.date-tag {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--text-gold);
+  margin-bottom: var(--space-md);
+  position: relative;
+}
+
+.section-kicker::before {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 1px;
+  background-color: var(--color-antique-gold);
+  box-shadow: 0 0 6px rgba(183, 149, 91, 0.85), 0 0 14px rgba(183, 149, 91, 0.4);
+}
+
+/* Paragraphs & Editorial Leads */
+p {
+  margin: 0 0 var(--space-md) 0;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+.lead {
+  font-size: var(--text-lg);
+  line-height: 1.55;
+  color: var(--text-primary);
+  max-width: 62ch;
+}
+
+.lead-muted {
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: 64ch;
+}
+
+/* Multilingual Typography Script Resilience */
+.script-tamil {
+  font-family: -apple-system, BlinkMacSystemFont, "Mukta Malar", "Latha", "Noto Sans Tamil", sans-serif;
+}
+
+.script-malayalam {
+  font-family: -apple-system, BlinkMacSystemFont, "Manjari", "Kartika", "Noto Sans Malayalam", sans-serif;
+}
+
+.script-japanese {
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", "Noto Sans JP", sans-serif;
+}
+
+.script-german {
+  font-family: var(--font-display);
+}
+
+/* Blockquote Editorial Callout */
+.editorial-quote {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-style: italic;
+  line-height: 1.35;
+  color: var(--text-primary);
+  border-left: 2px solid var(--color-antique-gold);
+  padding-left: var(--space-lg);
+  margin: var(--space-xl) 0;
+}
+
+/* Number Callouts */
+.stat-number {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 3rem + 3vw, 5.5rem);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+}
+
+.stat-number sup {
+  font-size: 0.55em;
+  color: var(--text-gold);
+  vertical-align: super;
+  font-family: var(--font-mono);
+}

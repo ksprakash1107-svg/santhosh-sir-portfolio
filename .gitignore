@@ -1,0 +1,18 @@
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary test screenshots
+screenshot_*.png
+
+# Node / Package managers
+node_modules/
+package-lock.json
+
+# Logs
+*.log
