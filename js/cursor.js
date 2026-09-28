@@ -1,137 +1,95 @@
 /**
- * Polyglot Celestial Astrolabe Cursor
+ * Neon Polyglot Falling Letters Cursor
  * Santhosh S. — Multilingual Educator Portfolio
  * 
  * Features:
- * 1. 5 Planetary Language Satellites (Tamil, English, Malayalam, German, Japanese)
- * 2. Precision Central Jewel Dot (immediate zero-latency tracking)
- * 3. Fluid Lerped Outer Astrolabe Reticle with 4 Cardinal Viewfinder Notches
- * 4. Contextual Aerospace Polyglot HUD with Smart Viewport Edge-Flipping
- * 5. Pentagonal Linguistic Burst on Click (5 signature glyphs burst in a celestial star formation)
- * 6. Fullscreen Stardust Sparks Canvas with ambient stardust motes
- * 7. Responsive Fallback: completely disabled on touch and coarse pointer devices
+ * 1. Minimalist Neon Cursor: A luminous starlight pearl (emerald & champagne gold neon aura)
+ *    paired with a fluid spring-lerped trailing reticle ring.
+ * 2. 5-Language Falling Letters Trail: As the cursor moves across the screen, characters from
+ *    the 5 living languages (Tamil, English, Malayalam, German, Japanese) gently spawn along
+ *    the movement path and drift downward with subtle gravity, graceful sway, and soft neon glow.
+ * 3. Portfolio Palette Harmony: Deep forest emerald (#52C79A), antique champagne gold (#B7955B),
+ *    warm ivory (#F4F0E8), and amber starlight (#E8C170).
+ * 4. Responsive & Accessible: Completely disabled on mobile / touch / coarse pointer devices.
+ * 5. High Performance: Zero-allocation loop when idle, requestAnimationFrame batching,
+ *    DPR-capped canvas, GPU transform3d.
  */
 
-const CURSOR_LANGUAGES = [
-  { id: 'tamil', glyph: 'த', name: 'TAMIL', script: 'தமிழ்', ipa: '/t̪ɐmɨɻ/', tag: '13.08° N · BEDROCK' },
-  { id: 'english', glyph: 'EN', name: 'ENGLISH', script: 'GLOBAL', ipa: "/'ɪŋglɪʃ/", tag: 'WORLD LINGUA FRANCA' },
-  { id: 'malayalam', glyph: 'മ', name: 'MALAYALAM', script: 'മലയാളം', ipa: '/mɐlɐjaːɭɐm/', tag: 'HERITAGE · CADENCE' },
-  { id: 'german', glyph: 'DE', name: 'GERMAN', script: 'DEUTSCH', ipa: '/dɔʏtʃ/', tag: '51.16° N · IMMERSION' },
-  { id: 'japanese', glyph: '日', name: 'JAPANESE', script: '日本語', ipa: '/nihongo/', tag: 'EAST ASIA · ETIQUETTE' }
+const LANGUAGE_ALPHABETS = [
+  {
+    name: 'Tamil',
+    letters: ['த', 'மி', 'ழ்', 'அ', 'ன்', 'வ', 'சொ', 'ல்', 'க', 'ள'],
+    color: '#B7955B',           // Antique Champagne Gold
+    glow: 'rgba(183, 149, 91, 0.85)'
+  },
+  {
+    name: 'English',
+    letters: ['E', 'N', 'G', 'L', 'I', 'S', 'H', 'A', 'R', 'T'],
+    color: '#F4F0E8',           // Warm Starlight Ivory
+    glow: 'rgba(244, 240, 232, 0.8)'
+  },
+  {
+    name: 'Malayalam',
+    letters: ['മ', 'ല', 'യാ', 'ള', 'ം', 'വാ', 'ക്ക്', 'ധ', 'ര'],
+    color: '#D8CBB8',           // Dravidian Sandstone
+    glow: 'rgba(216, 203, 184, 0.8)'
+  },
+  {
+    name: 'German',
+    letters: ['D', 'E', 'U', 'T', 'S', 'C', 'H', 'W', 'O', 'R'],
+    color: '#52C79A',           // Starlight Neon Emerald
+    glow: 'rgba(82, 199, 154, 0.9)'
+  },
+  {
+    name: 'Japanese',
+    letters: ['日', '本', '語', '言', '葉', '文', '和', '道'],
+    color: '#E8C170',           // Amber Gold Neon
+    glow: 'rgba(232, 193, 112, 0.9)'
+  }
 ];
 
 export class PolyglotCursor {
   constructor() {
-    // Graceful bailout on mobile / touch or prefers-reduced-motion
+    // Graceful bailout on mobile / touch or coarse pointers
     if (window.matchMedia('(hover: none) or (pointer: coarse)').matches) return;
 
-    this.mouse = { x: -200, y: -200, lastX: -200, lastY: -200, speed: 0 };
-    this.dot = { x: -200, y: -200 };
+    this.mouse = { x: -200, y: -200, lastX: -200, lastY: -200 };
     this.ring = { x: -200, y: -200 };
-    this.hud = { x: -200, y: -200 };
-
-    this.orbitAngle = 0;
-    this.orbitRadius = 24;
-    this.targetRadius = 24;
+    this.accumulatedDist = 0;
+    this.langCycleIndex = 0;
 
     this.isHovering = false;
     this.isClicking = false;
     this.isVisible = false;
-    this.isCustomLocked = false;
-
-    this.ambientIndex = 0;
-    this.ambientTimer = null;
 
     this.particles = [];
-    this.maxParticles = 50;
+    this.maxParticles = 75;
 
     this.initDOM();
     this.initCanvas();
     this.bindEvents();
-    this.startAmbientCycle();
     this.startRenderLoop();
   }
 
   initDOM() {
-    this.container = document.createElement('div');
-    this.container.className = 'polyglot-cursor-container';
-    this.container.setAttribute('aria-hidden', 'true');
-
-    // Stardust Canvas
+    // 1. Fullscreen Trail Canvas
     this.canvas = document.createElement('canvas');
-    this.canvas.className = 'cursor-stardust-canvas';
-    this.container.appendChild(this.canvas);
+    this.canvas.className = 'neon-cursor-canvas';
+    this.canvas.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(this.canvas);
     this.ctx = this.canvas.getContext('2d');
 
-    // Central Precision Dot
+    // 2. Central High-Precision Neon Dot
     this.dotEl = document.createElement('div');
-    this.dotEl.className = 'cursor-center-dot';
-    this.container.appendChild(this.dotEl);
+    this.dotEl.className = 'neon-cursor-dot';
+    this.dotEl.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(this.dotEl);
 
-    // Reticle Ring & Notches
-    this.reticleEl = document.createElement('div');
-    this.reticleEl.className = 'cursor-reticle-ring';
-
-    ['top', 'right', 'bottom', 'left'].forEach((pos) => {
-      const notch = document.createElement('span');
-      notch.className = `cursor-notch notch-${pos}`;
-      this.reticleEl.appendChild(notch);
-    });
-
-    // Orbit Track Container
-    this.orbitTrack = document.createElement('div');
-    this.orbitTrack.className = 'cursor-orbit-track';
-
-    this.satelliteEls = [];
-    CURSOR_LANGUAGES.forEach((lang, index) => {
-      const sat = document.createElement('div');
-      sat.className = `cursor-satellite sat-${lang.id}`;
-      sat.dataset.langId = lang.id;
-      sat.title = `${lang.name} (${lang.script})`;
-
-      const glyphSpan = document.createElement('span');
-      glyphSpan.className = 'satellite-glyph';
-      glyphSpan.textContent = lang.glyph;
-      sat.appendChild(glyphSpan);
-
-      this.orbitTrack.appendChild(sat);
-      this.satelliteEls.push({ el: sat, data: lang, index });
-    });
-    this.reticleEl.appendChild(this.orbitTrack);
-
-    // Shockwave pulse
-    this.shockwaveEl = document.createElement('div');
-    this.shockwaveEl.className = 'cursor-shockwave-pulse';
-    this.reticleEl.appendChild(this.shockwaveEl);
-
-    this.container.appendChild(this.reticleEl);
-
-    // Aerospace HUD Tag
-    this.hudEl = document.createElement('div');
-    this.hudEl.className = 'cursor-telemetry-hud';
-
-    const pip = document.createElement('div');
-    pip.className = 'hud-status-pip';
-    this.hudEl.appendChild(pip);
-
-    const hudContent = document.createElement('div');
-    hudContent.className = 'hud-content';
-
-    this.hudPrimary = document.createElement('span');
-    this.hudPrimary.className = 'hud-primary-text';
-    this.hudPrimary.textContent = 'TAMIL · தமிழ்';
-
-    this.hudSecondary = document.createElement('span');
-    this.hudSecondary.className = 'hud-secondary-text';
-    this.hudSecondary.textContent = '13.08° N · BEDROCK';
-
-    hudContent.appendChild(this.hudPrimary);
-    hudContent.appendChild(this.hudSecondary);
-    this.hudEl.appendChild(hudContent);
-
-    this.container.appendChild(this.hudEl);
-
-    document.body.appendChild(this.container);
+    // 3. Fluid Outer Lerped Neon Ring
+    this.ringEl = document.createElement('div');
+    this.ringEl.className = 'neon-cursor-ring';
+    this.ringEl.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(this.ringEl);
   }
 
   initCanvas() {
@@ -156,7 +114,8 @@ export class PolyglotCursor {
     window.addEventListener('mousemove', (e) => {
       if (!this.isVisible) {
         this.isVisible = true;
-        this.container.classList.add('is-visible');
+        this.dotEl.classList.add('is-visible');
+        this.ringEl.classList.add('is-visible');
       }
 
       this.mouse.lastX = this.mouse.x;
@@ -164,260 +123,158 @@ export class PolyglotCursor {
       this.mouse.x = e.clientX;
       this.mouse.y = e.clientY;
 
+      if (this.mouse.lastX === -200) {
+        this.ring.x = this.mouse.x;
+        this.ring.y = this.mouse.y;
+        return;
+      }
+
       const dx = this.mouse.x - this.mouse.lastX;
       const dy = this.mouse.y - this.mouse.lastY;
-      this.mouse.speed = Math.sqrt(dx * dx + dy * dy);
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      this.accumulatedDist += dist;
 
-      // Ambient stardust motes when moving fast
-      if (this.mouse.speed > 8 && Math.random() < 0.3) {
-        this.spawnMotionMote(this.mouse.x, this.mouse.y);
+      // Spawn a falling 5-language letter every 14px of movement
+      if (this.accumulatedDist >= 14) {
+        const steps = Math.min(Math.floor(this.accumulatedDist / 14), 4);
+        for (let i = 0; i < steps; i++) {
+          const t = (i + 1) / steps;
+          const spawnX = this.mouse.lastX + dx * t;
+          const spawnY = this.mouse.lastY + dy * t;
+          this.spawnFallingLetter(spawnX, spawnY);
+        }
+        this.accumulatedDist = 0;
       }
     }, { passive: true });
 
     document.addEventListener('mouseleave', () => {
       this.isVisible = false;
-      this.container.classList.remove('is-visible');
+      this.dotEl.classList.remove('is-visible');
+      this.ringEl.classList.remove('is-visible');
     });
 
     document.addEventListener('mouseenter', () => {
       this.isVisible = true;
-      this.container.classList.add('is-visible');
+      this.dotEl.classList.add('is-visible');
+      this.ringEl.classList.add('is-visible');
     });
 
-    // Mousedown / Mouseup Tactile Shockwave & 5 Languages Pentagonal Burst
     window.addEventListener('mousedown', (e) => {
       this.isClicking = true;
-      this.container.classList.add('is-clicking');
+      this.ringEl.classList.add('is-clicking');
 
-      // Trigger shockwave animation
-      this.shockwaveEl.classList.remove('trigger-pulse');
-      void this.shockwaveEl.offsetWidth; // Force reflow
-      this.shockwaveEl.classList.add('trigger-pulse');
-
-      // Pentagonal burst of all 5 language signatures!
-      this.spawnPentagonalBurst(e.clientX, e.clientY);
+      // Click burst: cascade letters from all 5 languages
+      LANGUAGE_ALPHABETS.forEach((lang, idx) => {
+        const angle = (idx / LANGUAGE_ALPHABETS.length) * Math.PI * 2;
+        const letter = lang.letters[Math.floor(Math.random() * lang.letters.length)];
+        this.particles.push({
+          x: e.clientX,
+          y: e.clientY,
+          vx: Math.cos(angle) * (1.2 + Math.random() * 1.5),
+          vy: Math.sin(angle) * (1.2 + Math.random() * 1.5) + 0.5,
+          gravity: 0.04,
+          swaySpeed: 0.04,
+          swayAmount: 0.8,
+          swayPhase: Math.random() * Math.PI * 2,
+          rotation: (Math.random() - 0.5) * 0.3,
+          rotSpeed: (Math.random() - 0.5) * 0.02,
+          size: 14 + Math.random() * 4,
+          alpha: 1,
+          decay: 0.014 + Math.random() * 0.008,
+          letter: letter,
+          color: lang.color,
+          glow: lang.glow
+        });
+      });
     });
 
     window.addEventListener('mouseup', () => {
       this.isClicking = false;
-      this.container.classList.remove('is-clicking');
+      this.ringEl.classList.remove('is-clicking');
     });
 
-    // Intelligent Contextual Hover Detection
+    // Detect clickable/interactive hover targets
     const hoverables = 'a, button, [role="button"], input, select, textarea, .language-card, .pillar-card, .institution-card, .timeline-step, .discipline-card, #sphere, .btn-luxury, .magnetic-btn';
 
     document.addEventListener('mouseover', (e) => {
-      const target = e.target;
-
-      // 1. Language Card Hover
-      const langCard = target.closest('[data-lang-id]');
-      if (langCard) {
-        const langId = langCard.dataset.langId;
-        const langData = CURSOR_LANGUAGES.find(l => l.id === langId);
-        if (langData) {
-          this.setLockedLanguage(langData);
-          this.setHoverState(true, 36);
-          return;
-        }
-      }
-
-      // 2. 3D Sphere Canvas Hover
-      if (target.closest('#sphere') || target.closest('.canvas-frame')) {
-        this.setCustomHUD('ASTROLABE · 3D', '360° CELESTIAL ORBIT');
-        this.setHoverState(true, 32);
-        return;
-      }
-
-      // 3. CTA Buttons & Interactive Links
-      const btn = target.closest('.btn-luxury, .btn-primary, [data-magnetic="true"]');
-      if (btn) {
-        const text = btn.textContent.trim().toLowerCase();
-        if (text.includes('conversation') || text.includes('contact') || text.includes('connect')) {
-          this.setCustomHUD('CONNECT · உரையாடல்', 'TRANSCONTINENTAL DIALOGUE');
-        } else {
-          this.setCustomHUD('ACTION · ENGAGE', 'PREVIEW SPECIFICATION');
-        }
-        this.setHoverState(true, 38);
-        return;
-      }
-
-      // 4. General Hoverables
-      if (target.closest(hoverables)) {
-        this.setHoverState(true, 32);
+      if (e.target.closest(hoverables)) {
+        this.isHovering = true;
+        this.ringEl.classList.add('is-hovering');
       }
     });
 
     document.addEventListener('mouseout', (e) => {
-      const currentLangCard = e.target.closest('[data-lang-id]');
-      const nextLangCard = e.relatedTarget ? e.relatedTarget.closest('[data-lang-id]') : null;
-
-      if (currentLangCard && !nextLangCard) {
-        this.clearLockedLanguage();
-      }
-
-      const currentHoverable = e.target.closest(hoverables);
-      const nextHoverable = e.relatedTarget ? e.relatedTarget.closest(hoverables) : null;
-
-      if (currentHoverable && !nextHoverable) {
-        this.setHoverState(false, 24);
-        if (!nextLangCard) {
-          this.clearLockedLanguage();
-        }
+      if (e.target.closest(hoverables)) {
+        this.isHovering = false;
+        this.ringEl.classList.remove('is-hovering');
       }
     });
-  }
-
-  setHoverState(isHovered, targetRadius = 24) {
-    this.isHovering = isHovered;
-    this.targetRadius = targetRadius;
-    if (isHovered) {
-      this.container.classList.add('is-hovering');
-    } else {
-      this.container.classList.remove('is-hovering');
-    }
   }
 
   setActiveLanguage(langId) {
-    const langIndex = CURSOR_LANGUAGES.findIndex(l => l.id === langId);
-    if (langIndex !== -1) {
-      this.ambientIndex = langIndex;
-      this.currentLangId = langId;
-      if (!this.isCustomLocked) {
-        this.applyAmbientLanguage(langIndex);
-      }
+    const idx = LANGUAGE_ALPHABETS.findIndex(l => l.name.toLowerCase() === langId.toLowerCase());
+    if (idx !== -1) {
+      this.langCycleIndex = idx;
     }
-  }
-
-  setLockedLanguage(langData) {
-    this.isCustomLocked = true;
-    this.hudPrimary.textContent = `${langData.name} · ${langData.script}`;
-    this.hudSecondary.textContent = `${langData.ipa} · ${langData.tag}`;
-    this.highlightSatellite(langData.id);
-  }
-
-  clearLockedLanguage() {
-    this.isCustomLocked = false;
-    this.applyAmbientLanguage(this.ambientIndex);
-  }
-
-  setCustomHUD(primary, secondary) {
-    this.isCustomLocked = true;
-    this.hudPrimary.textContent = primary;
-    this.hudSecondary.textContent = secondary;
-  }
-
-  highlightSatellite(langId) {
-    this.satelliteEls.forEach(sat => {
-      if (sat.data.id === langId) {
-        sat.el.classList.add('is-highlighted');
-      } else {
-        sat.el.classList.remove('is-highlighted');
-      }
-    });
-  }
-
-  startAmbientCycle() {
-    this.applyAmbientLanguage(0);
-    this.ambientTimer = setInterval(() => {
-      if (this.isCustomLocked || this.isHovering) return;
-      this.ambientIndex = (this.ambientIndex + 1) % CURSOR_LANGUAGES.length;
-      this.applyAmbientLanguage(this.ambientIndex);
-    }, 3600);
-  }
-
-  applyAmbientLanguage(index) {
-    const lang = CURSOR_LANGUAGES[index];
-    if (!lang) return;
-
-    this.hudPrimary.textContent = `${lang.name} · ${lang.script}`;
-    this.hudSecondary.textContent = lang.tag;
-
-    this.satelliteEls.forEach((sat, i) => {
-      if (i === index) {
-        sat.el.classList.add('is-active');
-      } else {
-        sat.el.classList.remove('is-active');
-      }
-    });
   }
 
   /**
-   * Signature Pentagonal 5-Language Burst
-   * Discharges each of the 5 language glyphs in a radiant star formation
+   * Spawns a single falling letter from one of the 5 languages
    */
-  spawnPentagonalBurst(x, y) {
-    const count = CURSOR_LANGUAGES.length;
-    const baseAngle = -Math.PI / 2; // North start
-
-    for (let i = 0; i < count; i++) {
-      const lang = CURSOR_LANGUAGES[i];
-      const angle = baseAngle + (i * ((Math.PI * 2) / count));
-      const speed = 2.4 + Math.random() * 0.8;
-
-      this.particles.push({
-        x,
-        y,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed,
-        alpha: 1,
-        decay: 0.022,
-        size: 11,
-        char: lang.glyph,
-        colorBase: i % 2 === 0 ? 'rgba(183, 149, 91, ' : 'rgba(82, 199, 154, ',
-        isGlyph: true
-      });
-
-      // Complementary star mote between glyphs
-      const midAngle = angle + (Math.PI / count);
-      this.particles.push({
-        x,
-        y,
-        vx: Math.cos(midAngle) * (speed * 0.75),
-        vy: Math.sin(midAngle) * (speed * 0.75),
-        alpha: 0.9,
-        decay: 0.03,
-        size: 7,
-        char: '✦',
-        colorBase: 'rgba(244, 240, 232, ',
-        isGlyph: false
-      });
-    }
-  }
-
-  spawnMotionMote(x, y) {
+  spawnFallingLetter(x, y) {
     if (this.particles.length >= this.maxParticles) {
       this.particles.shift();
     }
 
-    const motes = ['✦', '·', '✧', '•'];
-    const angle = Math.random() * Math.PI * 2;
-    const speed = 0.5 + Math.random() * 1.2;
+    // Cycle through the 5 languages sequentially so all 5 are gracefully represented
+    const lang = LANGUAGE_ALPHABETS[this.langCycleIndex];
+    this.langCycleIndex = (this.langCycleIndex + 1) % LANGUAGE_ALPHABETS.length;
+
+    const letter = lang.letters[Math.floor(Math.random() * lang.letters.length)];
+
+    // Slight lateral jitter for organic drift
+    const jitterX = (Math.random() - 0.5) * 8;
+    const jitterY = (Math.random() - 0.5) * 8;
 
     this.particles.push({
-      x,
-      y,
-      vx: Math.cos(angle) * speed,
-      vy: Math.sin(angle) * speed - 0.3,
-      alpha: 0.85,
-      decay: 0.028,
-      size: 7 + Math.random() * 3,
-      char: motes[Math.floor(Math.random() * motes.length)],
-      colorBase: 'rgba(183, 149, 91, ',
-      isGlyph: false
+      x: x + jitterX,
+      y: y + jitterY,
+      vx: (Math.random() - 0.5) * 0.8,
+      vy: 0.6 + Math.random() * 0.8,         // Initial downward velocity
+      gravity: 0.038,                        // Gentle downward acceleration
+      swaySpeed: 0.035 + Math.random() * 0.02,
+      swayAmount: 0.6 + Math.random() * 0.8,
+      swayPhase: Math.random() * Math.PI * 2,
+      rotation: (Math.random() - 0.5) * 0.25,
+      rotSpeed: (Math.random() - 0.5) * 0.015,
+      size: 12 + Math.random() * 4,
+      alpha: 0.95,
+      decay: 0.015 + Math.random() * 0.008,  // ~1.2s to 1.8s lifespan
+      letter: letter,
+      color: lang.color,
+      glow: lang.glow
     });
   }
 
   updateParticles() {
-    if (!this.ctx || this.particles.length === 0) return;
+    if (!this.ctx) return;
 
+    // Clear canvas
     this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+    if (this.particles.length === 0) return;
 
     for (let i = this.particles.length - 1; i >= 0; i--) {
       const p = this.particles[i];
-      p.x += p.vx;
+
+      // Physical motion: gravity pulling down + gentle side-to-side sway
+      p.vy += p.gravity;
+      p.swayPhase += p.swaySpeed;
+      const sway = Math.sin(p.swayPhase) * p.swayAmount;
+
+      p.x += p.vx + sway;
       p.y += p.vy;
-      p.vx *= 0.95;
-      p.vy *= 0.95;
+      p.rotation += p.rotSpeed;
       p.alpha -= p.decay;
 
       if (p.alpha <= 0.02) {
@@ -426,65 +283,40 @@ export class PolyglotCursor {
       }
 
       this.ctx.save();
-      const fontFace = p.isGlyph
-        ? '"Playfair Display", "Noto Sans Tamil", "Noto Sans Malayalam", "Noto Sans JP", sans-serif'
-        : '"DM Mono", monospace';
-      this.ctx.font = `600 ${p.size}px ${fontFace}`;
-      this.ctx.fillStyle = `${p.colorBase}${p.alpha})`;
-      this.ctx.shadowColor = `${p.colorBase}${p.alpha * 0.85})`;
-      this.ctx.shadowBlur = p.isGlyph ? 8 : 4;
+      this.ctx.translate(p.x, p.y);
+      this.ctx.rotate(p.rotation);
+
+      // Typography covering all 5 scripts
+      this.ctx.font = `600 ${p.size}px "Playfair Display", "Noto Sans Tamil", "Noto Sans Malayalam", "Noto Sans JP", "DM Sans", sans-serif`;
+
+      // Dual-layer neon glow effect
+      this.ctx.shadowColor = p.glow;
+      this.ctx.shadowBlur = 10;
+      this.ctx.fillStyle = p.color;
+      this.ctx.globalAlpha = p.alpha;
       this.ctx.textAlign = 'center';
       this.ctx.textBaseline = 'middle';
-      this.ctx.fillText(p.char, p.x, p.y);
+
+      this.ctx.fillText(p.letter, 0, 0);
+
       this.ctx.restore();
     }
   }
 
   startRenderLoop() {
     const render = () => {
-      // 1. Lerp Radius towards target
-      this.orbitRadius += (this.targetRadius - this.orbitRadius) * 0.12;
-
-      // 2. Center Dot tracks instantly (zero latency)
       if (this.isVisible) {
+        // Immediate dot tracking
         this.dotEl.style.transform = `translate3d(${this.mouse.x}px, ${this.mouse.y}px, 0) translate(-50%, -50%)`;
 
-        // 3. Reticle smoothly lerps
-        const lerpFactor = 0.18;
+        // Smooth spring lerp for outer neon ring
+        const lerpFactor = 0.2;
         this.ring.x += (this.mouse.x - this.ring.x) * lerpFactor;
         this.ring.y += (this.mouse.y - this.ring.y) * lerpFactor;
-        this.reticleEl.style.transform = `translate3d(${this.ring.x}px, ${this.ring.y}px, 0) translate(-50%, -50%)`;
-
-        // 4. Orbit rotation & positioning satellites
-        const speed = this.isHovering ? 0.028 : 0.014;
-        this.orbitAngle += speed;
-
-        const count = this.satelliteEls.length;
-        const step = (Math.PI * 2) / count;
-
-        for (let i = 0; i < count; i++) {
-          const sat = this.satelliteEls[i];
-          const a = this.orbitAngle + (i * step);
-          const sx = Math.cos(a) * this.orbitRadius;
-          const sy = Math.sin(a) * this.orbitRadius;
-          const isSpecial = sat.el.classList.contains('is-active') || sat.el.classList.contains('is-highlighted');
-          const scale = isSpecial ? 1.25 : 1.0;
-
-          // translate3d places the satellite on the orbit circle while keeping glyph upright
-          sat.el.style.transform = `translate3d(${sx}px, ${sy}px, 0) translate(-50%, -50%) scale(${scale})`;
-        }
-
-        // 5. Aerospace Telemetry HUD smoothly floats beside cursor with edge-flip avoidance
-        const hudLerp = 0.12;
-        const isNearRightEdge = this.mouse.x > (window.innerWidth - 180);
-        const targetHudX = isNearRightEdge ? (this.mouse.x - 145) : (this.mouse.x + 24);
-        const targetHudY = this.mouse.y + 16;
-        this.hud.x += (targetHudX - this.hud.x) * hudLerp;
-        this.hud.y += (targetHudY - this.hud.y) * hudLerp;
-        this.hudEl.style.transform = `translate3d(${this.hud.x}px, ${this.hud.y}px, 0)`;
+        this.ringEl.style.transform = `translate3d(${this.ring.x}px, ${this.ring.y}px, 0) translate(-50%, -50%)`;
       }
 
-      // 6. Update canvas stardust particles
+      // Update falling 5-language letter particles
       this.updateParticles();
 
       requestAnimationFrame(render);

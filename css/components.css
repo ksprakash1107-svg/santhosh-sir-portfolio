@@ -1184,264 +1184,89 @@ dialog#enquiry-modal::backdrop {
 }
 
 /* ============================================================
-   CELESTIAL POLYGLOT ASTROLABE CURSOR (5 Languages Touch)
+   NEON CURSOR & 5-LANGUAGE FALLING TRAIL
    ============================================================ */
 @media (hover: hover) and (pointer: fine) {
-  .polyglot-cursor-container {
+  .neon-cursor-canvas {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
     pointer-events: none;
-    z-index: 99999;
-    overflow: hidden;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    z-index: 99998;
   }
 
-  .polyglot-cursor-container.is-visible {
-    opacity: 1;
-  }
-
-  /* Fullscreen Stardust Sparks Canvas */
-  .cursor-stardust-canvas {
-    position: absolute;
+  .neon-cursor-dot {
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-  }
-
-  /* Central High-Precision Starlight Jewel Dot */
-  .cursor-center-dot {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 4px;
+    width: 5px;
+    height: 5px;
     background: #FFFFFF;
     border-radius: 50%;
     pointer-events: none;
+    z-index: 99999;
     transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.95), 0 0 16px rgba(183, 149, 91, 0.85);
-    transition: background-color 0.2s ease, width 0.2s ease, height 0.2s ease;
+    box-shadow: 0 0 8px #52C79A, 0 0 16px rgba(183, 149, 91, 0.85), 0 0 24px rgba(82, 199, 154, 0.4);
     will-change: transform;
-    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.25s ease, transform 0.04s linear;
   }
 
-  /* Lerped Outer Astrolabe Reticle */
-  .cursor-reticle-ring {
-    position: absolute;
+  .neon-cursor-ring {
+    position: fixed;
     top: 0;
     left: 0;
-    width: 32px;
-    height: 32px;
-    border: 1px solid rgba(183, 149, 91, 0.65);
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
+    border: 1px solid rgba(82, 199, 154, 0.65);
+    background: radial-gradient(circle, rgba(82, 199, 154, 0.04) 0%, transparent 70%);
+    box-shadow: 0 0 10px rgba(82, 199, 154, 0.25), inset 0 0 8px rgba(183, 149, 91, 0.2);
     pointer-events: none;
+    z-index: 99999;
     transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
-    transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    will-change: transform, width, height, border-color, box-shadow;
+    opacity: 0;
+    transition: opacity 0.25s ease, width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
                 height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
                 border-color 0.25s ease,
-                background-color 0.25s ease,
-                box-shadow 0.25s ease;
-    will-change: transform, width, height;
-    z-index: 5;
-    background: radial-gradient(circle, rgba(183, 149, 91, 0.05) 0%, transparent 70%);
+                box-shadow 0.25s ease,
+                background-color 0.25s ease;
   }
 
-  /* 4 Cardinal Reticle Notches (Astrolabe Viewfinder) */
-  .cursor-notch {
-    position: absolute;
-    background: rgba(183, 149, 91, 0.85);
-    pointer-events: none;
-    transition: background-color 0.2s ease, transform 0.2s ease;
-  }
-  .cursor-notch.notch-top {
-    top: -5px; left: 50%; width: 1px; height: 4px; transform: translateX(-50%);
-  }
-  .cursor-notch.notch-bottom {
-    bottom: -5px; left: 50%; width: 1px; height: 4px; transform: translateX(-50%);
-  }
-  .cursor-notch.notch-left {
-    left: -5px; top: 50%; width: 4px; height: 1px; transform: translateY(-50%);
-  }
-  .cursor-notch.notch-right {
-    right: -5px; top: 50%; width: 4px; height: 1px; transform: translateY(-50%);
+  .neon-cursor-dot.is-visible,
+  .neon-cursor-ring.is-visible {
+    opacity: 1;
   }
 
-  /* Orbit Track Container */
-  .cursor-orbit-track {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    pointer-events: none;
+  .neon-cursor-ring.is-hovering {
+    width: 44px;
+    height: 44px;
+    border-color: rgba(183, 149, 91, 0.9);
+    background: radial-gradient(circle, rgba(183, 149, 91, 0.12) 0%, rgba(82, 199, 154, 0.04) 60%, transparent 80%);
+    box-shadow: 0 0 18px rgba(183, 149, 91, 0.45), 0 0 28px rgba(82, 199, 154, 0.3);
   }
 
-  /* 5 Planetary Language Satellites */
-  .cursor-satellite {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 17px;
-    height: 17px;
-    border-radius: 50%;
-    background: rgba(13, 20, 18, 0.92);
-    border: 1px solid rgba(183, 149, 91, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-    will-change: transform;
-    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.25s ease;
-  }
-
-  .cursor-satellite .satellite-glyph {
-    font-size: 8.5px;
-    font-weight: 600;
-    color: var(--color-warm-ivory);
-    line-height: 1;
-    font-family: "DM Mono", "Noto Sans Tamil", "Noto Sans Malayalam", "Noto Sans JP", monospace;
-    user-select: none;
-    pointer-events: none;
-  }
-
-  /* Highlighted Active Satellite */
-  .cursor-satellite.is-active,
-  .cursor-satellite.is-highlighted {
+  .neon-cursor-ring.is-clicking {
+    transform: translate3d(-100px, -100px, 0) translate(-50%, -50%) scale(0.78);
     border-color: #52C79A;
-    background: rgba(23, 53, 47, 0.96);
-    box-shadow: 0 0 10px rgba(82, 199, 154, 0.8), 0 0 18px rgba(82, 199, 154, 0.35);
-  }
-  .cursor-satellite.is-active .satellite-glyph,
-  .cursor-satellite.is-highlighted .satellite-glyph {
-    color: #FFFFFF;
-    text-shadow: 0 0 6px #52C79A;
-  }
-
-  /* Shockwave Click Ripple */
-  .cursor-shockwave-pulse {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: 1.5px solid var(--color-antique-gold);
-    pointer-events: none;
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 0;
-  }
-
-  .cursor-shockwave-pulse.trigger-pulse {
-    animation: cursorShockwave 0.5s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
-  }
-
-  @keyframes cursorShockwave {
-    0% {
-      transform: translate(-50%, -50%) scale(1);
-      opacity: 0.9;
-    }
-    100% {
-      transform: translate(-50%, -50%) scale(2.4);
-      opacity: 0;
-    }
-  }
-
-  /* Aerospace Polyglot HUD Tag */
-  .cursor-telemetry-hud {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 3px 9px;
-    background: rgba(13, 20, 18, 0.92);
-    border: 1px solid rgba(183, 149, 91, 0.5);
-    border-radius: 3px;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    pointer-events: none;
-    white-space: nowrap;
-    transform: translate3d(-100px, -100px, 0);
-    will-change: transform, opacity;
-    transition: border-color 0.2s ease, opacity 0.25s ease, background-color 0.2s ease;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45), 0 0 8px rgba(183, 149, 91, 0.15);
-    z-index: 8;
-  }
-
-  .hud-status-pip {
-    width: 4.5px;
-    height: 4.5px;
-    border-radius: 50%;
-    background: #52C79A;
-    box-shadow: 0 0 6px #52C79A;
-    animation: hudPipPulse 2s infinite ease-in-out;
-  }
-
-  @keyframes hudPipPulse {
-    0%, 100% { opacity: 0.6; transform: scale(0.9); }
-    50% { opacity: 1; transform: scale(1.2); }
-  }
-
-  .hud-content {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-  }
-
-  .hud-primary-text {
-    font-family: "DM Mono", "Noto Sans Tamil", "Noto Sans Malayalam", "Noto Sans JP", monospace;
-    font-size: 8.5px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    color: var(--color-warm-ivory);
-    line-height: 1.1;
-    text-transform: uppercase;
-  }
-
-  .hud-secondary-text {
-    font-family: "DM Mono", monospace;
-    font-size: 7px;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    color: var(--color-antique-gold);
-    line-height: 1;
-    opacity: 0.9;
-  }
-
-  /* Interactive Hover State (Cards, Buttons, Links) */
-  .polyglot-cursor-container.is-hovering .cursor-reticle-ring {
-    width: 48px;
-    height: 48px;
-    border-color: rgba(244, 240, 232, 0.85);
-    background: radial-gradient(circle, rgba(183, 149, 91, 0.12) 0%, transparent 75%);
-    box-shadow: 0 0 16px rgba(183, 149, 91, 0.35);
-  }
-
-  .polyglot-cursor-container.is-hovering .cursor-notch {
-    background: rgba(244, 240, 232, 0.95);
-  }
-
-  .polyglot-cursor-container.is-hovering .cursor-telemetry-hud {
-    border-color: rgba(82, 199, 154, 0.7);
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5), 0 0 12px rgba(82, 199, 154, 0.25);
   }
 
   /* Fallback legacy cursor support */
-  .custom-cursor {
-    display: none;
+  .custom-cursor,
+  .polyglot-cursor-container {
+    display: none !important;
   }
 }
 
 @media (hover: none) or (pointer: coarse) {
-  .polyglot-cursor-container,
-  .custom-cursor {
+  .neon-cursor-canvas,
+  .neon-cursor-dot,
+  .neon-cursor-ring,
+  .custom-cursor,
+  .polyglot-cursor-container {
     display: none !important;
   }
 }
