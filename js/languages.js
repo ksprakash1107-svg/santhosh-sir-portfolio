@@ -22,6 +22,11 @@ export class LanguageShowcaseController {
   init() {
     this.renderCards();
     this.bindEvents();
+    if (this.sphere) {
+      this.sphere.onSelectLanguage = (langId) => {
+        this.updateActiveState(langId, false);
+      };
+    }
     this.updateActiveState('tamil', false);
   }
 
@@ -115,8 +120,12 @@ export class LanguageShowcaseController {
     }
 
     // Pivot 3D Sphere if available
-    if (syncSphere && this.sphere && typeof this.sphere.focusLanguage === 'function') {
-      this.sphere.focusLanguage(langId);
+    if (this.sphere) {
+      if (syncSphere && typeof this.sphere.focusLanguage === 'function') {
+        this.sphere.focusLanguage(langId);
+      } else if (typeof this.sphere.setActiveLanguage === 'function') {
+        this.sphere.setActiveLanguage(langId);
+      }
     }
   }
 }
