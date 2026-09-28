@@ -5,7 +5,6 @@
  */
 
 import { PORTFOLIO_CONFIG } from './data.js';
-import { PolyglotCursor } from './cursor.js';
 
 export class InteractionsController {
   constructor() {
@@ -310,8 +309,41 @@ export class InteractionsController {
     }
   }
 
-  // 8. Polyglot Celestial Astrolabe Cursor (5 Languages Touch)
+  // 8. Minimal Custom Cursor (Desktop Only)
   initCustomCursor() {
-    this.cursor = new PolyglotCursor();
+    if (window.matchMedia('(hover: none) or (pointer: coarse)').matches) return;
+
+    const cursor = document.createElement('div');
+    cursor.className = 'custom-cursor';
+    document.body.appendChild(cursor);
+
+    let mouseX = -100;
+    let mouseY = -100;
+    let rafPending = false;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (!rafPending) {
+        rafPending = true;
+        requestAnimationFrame(() => {
+          cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+          rafPending = false;
+        });
+      }
+    }, { passive: true });
+
+    const hoverables = 'a, button, [role="button"], input, select, textarea, .language-card, .pillar-card, .institution-card';
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest(hoverables)) {
+        cursor.classList.add('hovering');
+      }
+    });
+
+    document.addEventListener('mouseout', (e) => {
+      if (e.target.closest(hoverables)) {
+        cursor.classList.remove('hovering');
+      }
+    });
   }
 }

@@ -1183,116 +1183,33 @@ dialog#enquiry-modal::backdrop {
   color: var(--text-primary);
 }
 
-/* ============================================================
-   NEON CURSOR & 5-LANGUAGE FALLING TRAIL
-   ============================================================ */
+/* Subtle Custom Cursor (Desktop Only) */
 @media (hover: hover) and (pointer: fine) {
-  .neon-cursor-canvas {
+  .custom-cursor {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 99998;
-  }
-
-  .neon-cursor-dot {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 5px;
-    height: 5px;
-    background: #FFFFFF;
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--color-antique-gold);
     border-radius: 50%;
     pointer-events: none;
-    z-index: 99999;
-    transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
-    box-shadow: 0 0 8px #52C79A, 0 0 16px rgba(183, 149, 91, 0.85), 0 0 24px rgba(82, 199, 154, 0.4);
     will-change: transform;
-    opacity: 0;
-    transition: opacity 0.25s ease, transform 0.04s linear;
-  }
-
-  .neon-cursor-ring {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    border: 1px solid rgba(82, 199, 154, 0.65);
-    background: radial-gradient(circle, rgba(82, 199, 154, 0.04) 0%, transparent 70%);
-    box-shadow: 0 0 10px rgba(82, 199, 154, 0.25), inset 0 0 8px rgba(183, 149, 91, 0.2);
-    pointer-events: none;
-    z-index: 99999;
     transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
-    will-change: transform, width, height, border-color, box-shadow;
-    opacity: 0;
-    transition: opacity 0.25s ease, width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                border-color 0.25s ease,
-                box-shadow 0.25s ease,
-                background-color 0.25s ease;
+    transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+    z-index: 9999;
   }
 
-  .neon-cursor-dot.is-visible {
-    opacity: 1;
-    animation: cursorGlitterDot 2.8s ease-in-out infinite;
-  }
-
-  .neon-cursor-ring.is-visible {
-    opacity: 1;
-    animation: cursorGlitterRing 3.2s ease-in-out infinite;
-  }
-
-  .neon-cursor-ring.is-hovering {
-    width: 44px;
-    height: 44px;
-    border-color: rgba(183, 149, 91, 0.9);
-    background: radial-gradient(circle, rgba(183, 149, 91, 0.12) 0%, rgba(82, 199, 154, 0.04) 60%, transparent 80%);
-    box-shadow: 0 0 18px rgba(183, 149, 91, 0.45), 0 0 28px rgba(82, 199, 154, 0.3);
-    animation: none;
-  }
-
-  .neon-cursor-ring.is-clicking {
-    transform: translate3d(-100px, -100px, 0) translate(-50%, -50%) scale(0.78);
-    border-color: #52C79A;
-  }
-
-  @keyframes cursorGlitterDot {
-    0%, 100% {
-      box-shadow: 0 0 7px #52C79A, 0 0 14px rgba(183, 149, 91, 0.8), 0 0 20px rgba(82, 199, 154, 0.35);
-    }
-    50% {
-      box-shadow: 0 0 10px #FFFFFF, 0 0 18px rgba(245, 215, 127, 0.95), 0 0 26px rgba(82, 199, 154, 0.55);
-    }
-  }
-
-  @keyframes cursorGlitterRing {
-    0%, 100% {
-      border-color: rgba(82, 199, 154, 0.65);
-      box-shadow: 0 0 10px rgba(82, 199, 154, 0.25), inset 0 0 8px rgba(183, 149, 91, 0.2);
-    }
-    50% {
-      border-color: rgba(245, 215, 127, 0.85);
-      box-shadow: 0 0 14px rgba(245, 215, 127, 0.4), 0 0 22px rgba(82, 199, 154, 0.3), inset 0 0 10px rgba(245, 215, 127, 0.25);
-    }
-  }
-
-  /* Fallback legacy cursor support */
-  .custom-cursor,
-  .polyglot-cursor-container {
-    display: none !important;
+  .custom-cursor.hovering {
+    width: 48px;
+    height: 48px;
+    background-color: rgba(183, 149, 91, 0.1);
+    border-color: var(--color-warm-ivory);
   }
 }
 
 @media (hover: none) or (pointer: coarse) {
-  .neon-cursor-canvas,
-  .neon-cursor-dot,
-  .neon-cursor-ring,
-  .custom-cursor,
-  .polyglot-cursor-container {
+  .custom-cursor {
     display: none !important;
   }
 }

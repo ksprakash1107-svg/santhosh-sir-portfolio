@@ -7,9 +7,8 @@
 import { PORTFOLIO_CONFIG } from './data.js';
 
 export class LanguageShowcaseController {
-  constructor(sphereInstance, cursorInstance = null) {
+  constructor(sphereInstance) {
     this.sphere = sphereInstance;
-    this.cursor = cursorInstance;
     this.container = document.getElementById('language-showcase-container');
     this.detailContainer = document.getElementById('language-active-detail');
     this.cards = [];
@@ -127,11 +126,6 @@ export class LanguageShowcaseController {
       } else if (typeof this.sphere.setActiveLanguage === 'function') {
         this.sphere.setActiveLanguage(langId);
       }
-    }
-
-    // Sync Polyglot Cursor if available
-    if (this.cursor && typeof this.cursor.setActiveLanguage === 'function') {
-      this.cursor.setActiveLanguage(langId);
     }
   }
 }
