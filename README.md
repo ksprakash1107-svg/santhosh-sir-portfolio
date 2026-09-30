@@ -8,13 +8,13 @@ A bespoke, production-ready personal brand portfolio website crafted for **Santh
 
 ## ✦ Overview
 
-This portfolio communicates the intersection of **Language**, **Higher Education**, **Communication Architecture**, and **International Mobility**. It reflects an authentic transcontinental journey between **Chennai, India** (`13.08° N`) and **Germany** (`51.16° N`).
+This portfolio communicates the intersection of **Language**, **Higher Education**, **Communication Architecture**, and **International Mobility**. It reflects an authentic transcontinental journey between **Chennai, India** (`13.08° N`) and **Australia** (`25.27° S`).
 
 ### Verified Professional Highlights
 
 - **17+ Years** of Language Pedagogy & Diagnostic Communication Training
 - **5 Living Languages**: Tamil, English, Malayalam, German, Japanese
-- **5+ Years** of Academic Study and Professional Immersion in Germany
+- **5+ Years** of Academic Study and International Immersion in Australia
 - **Higher Education Leadership**: English Faculty at Madras Engineering College
 - **Global Mobility Ecosystem**: Study abroad mentorship and language test calibration (IELTS, PTE, OET, Duolingo) with GoStudy
 
@@ -22,9 +22,9 @@ This portfolio communicates the intersection of **Language**, **Higher Education
 
 ## ✦ Key Architectural & Visual Features
 
-- **Polyglot Genesis Preloader**: Multilingual introductory sequence cycling across Tamil (`வணக்கம்`), German (`Willkommen`), Malayalam (`നമസ്കാരം`), Japanese (`ようこそ`), and English (`Welcome`) with an astronomical ring seal and neon progress track.
+- **Polyglot Genesis Preloader**: Multilingual introductory sequence cycling across Tamil (`வணக்கம்`), German (`Willkommen`), Malayalam (`നமസ്കാരം`), Japanese (`ようこそ`), and English (`Welcome`) with an astronomical ring seal and neon progress track.
 - **Interactive 3D Linguistic Continuum**: Canvas-rendered 3D orbital sphere mapping all 5 languages in real-time space with full drag/tilt orbit controls and synchronized card state.
-- **Transcontinental Geodesic Trajectory**: Live animated coordinates connecting Chennai (`13.08° N`) to Germany (`51.16° N`) with an atmospheric neon packet bloom.
+- **Transcontinental Geodesic Trajectory**: Live animated coordinates connecting Chennai (`13.08° N`) to Australia (`25.27° S`) with an atmospheric neon packet bloom.
 - **Luminary Continuum Action System**: Haute-couture button architecture with specular light tracks and beacon indicators.
 - **Rock-Solid Editorial Framing**: High-resolution AVIF/JPEG portrait photography stabilized with museum placard details.
 - **Accessible Design**: Zero horizontal overflow, full keyboard navigation, WCAG AA contrast compliance, and semantic HTML5.

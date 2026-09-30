@@ -69,7 +69,7 @@ function renderTimeline() {
   if (!container || container.children.length > 0) return;
 
   container.innerHTML = PORTFOLIO_CONFIG.timeline.map((step, idx) => `
-    <article class="timeline-step reveal delay-${idx} ${step.highlight ? 'highlight-germany' : ''}">
+    <article class="timeline-step reveal delay-${idx} ${step.highlight ? 'highlight-australia highlight-germany' : ''}">
       <span class="timeline-step-marker"></span>
       <span class="timeline-step-epoch">${step.epoch}</span>
       <h3>${step.title}</h3>

@@ -15,7 +15,7 @@ export const PORTFOLIO_CONFIG = {
     tagline: "English educator, communication trainer and international education professional shaped by teaching, language and international experience.",
     locations: {
       origin: { name: "Chennai, India", coords: "13.0827° N, 80.2707° E" },
-      international: { name: "Germany", coords: "51.1657° N, 10.4515° E" }
+      international: { name: "Australia", coords: "25.2744° S, 133.7751° E" }
     }
   },
 
@@ -41,7 +41,7 @@ export const PORTFOLIO_CONFIG = {
     },
     {
       value: "5+",
-      label: "Years of Professional Life in Germany",
+      label: "Years of Study & Immersion in Australia",
       meta: "International Immersion"
     },
     {
@@ -97,8 +97,8 @@ export const PORTFOLIO_CONFIG = {
       name: "German",
       nativeFamily: "Central Germanic",
       region: "Germany · Central Europe",
-      tagline: "5+ Yrs Immersion in Germany",
-      perspective: "Forged through over five years of academic study and professional immersion across Germany.",
+      tagline: "Professional CEFR Fluency",
+      perspective: "Mastery of German professional language standards and European communicative frameworks for international mobility.",
       color: "#17352F"
     },
     {
@@ -115,7 +115,7 @@ export const PORTFOLIO_CONFIG = {
     }
   ],
 
-  // Germany & International Journey Timeline
+  // Australia & International Journey Timeline
   timeline: [
     {
       epoch: "01 — Foundations",
@@ -125,16 +125,16 @@ export const PORTFOLIO_CONFIG = {
     },
     {
       epoch: "02 — International Chapter",
-      title: "Germany: 5+ Years Immersion",
-      subtitle: "5+ Years Academic & Professional Experience",
-      narrative: "Living, studying, and working in Germany for over five years, mastering German and European professional standards.",
+      title: "Australia: Academic Study & Immersion",
+      subtitle: "International Higher Education Chapter",
+      narrative: "Academic study and international immersion in Australia, mastering global pedagogical standards and international educational pathways.",
       highlight: true
     },
     {
       epoch: "03 — Synthesis",
       title: "Cross-Continental Synthesis",
       subtitle: "Bridging East, West & Global Aspirations",
-      narrative: "Uniting European precision with Indian academic pathways to prepare scholars for international careers."
+      narrative: "Uniting Australian international education standards with Indian academic pathways to prepare scholars for international careers."
     },
     {
       epoch: "04 — Leadership",

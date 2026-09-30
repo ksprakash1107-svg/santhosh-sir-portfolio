@@ -15,8 +15,8 @@ const WORKS: WorksWheelItem[] = [
     href: "https://www.go.study",
   },
   {
-    title: "Indo-Germanic Academic Nexus",
-    image: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=1200&auto=format&fit=crop&q=80",
+    title: "Indo-Australian Academic Nexus",
+    image: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=1200&auto=format&fit=crop&q=80",
     href: "#journey",
   },
   {

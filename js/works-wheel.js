@@ -24,9 +24,9 @@ export const WORKS_WHEEL_ITEMS = [
     action: "Explore Ecosystem"
   },
   {
-    title: "Indo-Germanic Nexus",
+    title: "Indo-Australian Nexus",
     category: "Transcontinental Bridge",
-    image: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=900&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=900&auto=format&fit=crop&q=80",
     href: "#journey",
     action: "View Trajectory"
   },
@@ -177,16 +177,14 @@ export class InteractiveWorksWheel {
       card.innerHTML = `
         <div class="works-wheel-card-face">
           <img src="${item.image}" alt="${item.title}" draggable="false" loading="lazy" />
-          <div class="works-wheel-card-glass">
-            <span class="works-wheel-card-badge">${item.category}</span>
-            <h5 class="works-wheel-card-heading">${item.title}</h5>
-            <span class="works-wheel-card-action">
-              <span>${item.action || 'Explore'}</span>
+          ${item.action && item.href ? `
+            <span class="works-wheel-card-action-pill">
+              <span>${item.action}</span>
               <svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true">
                 <path d="M3 9 9 3M4 3h5v5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </span>
-          </div>
+          ` : ''}
         </div>
       `;
 
