@@ -6,43 +6,38 @@ import { WorksWheel, type WorksWheelItem } from "@/components/ui/works-wheel";
 const WORKS: WorksWheelItem[] = [
   {
     title: "Madras Engineering College",
-    image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&auto=format&fit=crop&q=80",
+    image: "assets/images/works-mec-campus.jpg",
     href: "https://www.madrascollege.ac.in/",
   },
   {
     title: "GoStudy Global Ecosystem",
-    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1200&auto=format&fit=crop&q=80",
+    image: "assets/images/works-gostudy.jpg",
     href: "https://www.go.study",
   },
   {
-    title: "Indo-Australian Academic Nexus",
-    image: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=1200&auto=format&fit=crop&q=80",
+    title: "Indo-Australian Nexus",
+    image: "assets/images/works-australia-nexus.jpg",
     href: "#journey",
   },
   {
     title: "IELTS & Test Prep Mastery",
-    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1200&auto=format&fit=crop&q=80",
+    image: "assets/images/works-ielts-exam.jpg",
     href: "#training",
+  },
+  {
+    title: "Executive Business German",
+    image: "assets/images/works-business-german.jpg",
+    href: "#languages",
   },
   {
     title: "Japanese Language & JLPT",
-    image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200&auto=format&fit=crop&q=80",
+    image: "assets/images/works-japanese-calligraphy.jpg",
     href: "#languages",
   },
   {
-    title: "Executive Communication Coaching",
-    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1200&auto=format&fit=crop&q=80",
-    href: "#training",
-  },
-  {
-    title: "Dravidian Classical Linguistics",
-    image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&auto=format&fit=crop&q=80",
-    href: "#languages",
-  },
-  {
-    title: "Transcontinental Mobility Mentorship",
-    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&auto=format&fit=crop&q=80",
-    href: "#contact",
+    title: "Articulatory Phonetics",
+    image: "assets/images/works-spectrogram.png",
+    href: "#about",
   },
 ];
 

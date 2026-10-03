@@ -12,49 +12,50 @@ export const WORKS_WHEEL_ITEMS = [
   {
     title: "Madras Engineering College",
     category: "Higher Education Faculty",
-    image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=900&auto=format&fit=crop&q=80",
+    image: "assets/images/works-mec-campus.jpg",
+    style: "object-position: center 82%;",
     href: "https://www.madrascollege.ac.in/",
     action: "Visit Institution"
   },
   {
     title: "GoStudy Global Ecosystem",
     category: "Global Student Mobility",
-    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=900&auto=format&fit=crop&q=80",
+    image: "assets/images/works-gostudy.jpg",
     href: "https://www.go.study",
     action: "Explore Ecosystem"
   },
   {
     title: "Indo-Australian Nexus",
     category: "Transcontinental Bridge",
-    image: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=900&auto=format&fit=crop&q=80",
+    image: "assets/images/works-australia-nexus.jpg",
     href: "#journey",
     action: "View Trajectory"
   },
   {
     title: "IELTS & Test Prep Mastery",
     category: "High-Stakes Examination",
-    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=900&auto=format&fit=crop&q=80",
+    image: "assets/images/works-ielts-exam.jpg",
     href: "#training",
     action: "View Disciplines"
   },
   {
     title: "Executive Business German",
     category: "CEFR Corporate Fluency",
-    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=900&auto=format&fit=crop&q=80",
+    image: "assets/images/works-business-german.jpg",
     href: "#languages",
     action: "Language Matrix"
   },
   {
     title: "Japanese Language & JLPT",
     category: "Asian Linguistics Horizon",
-    image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=900&auto=format&fit=crop&q=80",
+    image: "assets/images/works-japanese-calligraphy.jpg",
     href: "#languages",
     action: "Kanji Dynamics"
   },
   {
     title: "Articulatory Phonetics",
     category: "Pedagogical Scaffolding",
-    image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=900&auto=format&fit=crop&q=80",
+    image: "assets/images/works-spectrogram.png",
     href: "#about",
     action: "Read Philosophy"
   }
@@ -176,7 +177,7 @@ export class InteractiveWorksWheel {
 
       card.innerHTML = `
         <div class="works-wheel-card-face">
-          <img src="${item.image}" alt="${item.title}" draggable="false" loading="lazy" />
+          <img src="${item.image}" alt="${item.title}" ${item.style ? `style="${item.style}"` : ''} draggable="false" loading="lazy" />
           ${item.action && item.href ? `
             <span class="works-wheel-card-action-pill">
               <span>${item.action}</span>
