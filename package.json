@@ -4,9 +4,7 @@
   "private": true,
   "description": "Premium Multilingual Portfolio for Santhosh S.",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build": "tsc"
   },
   "dependencies": {
     "clsx": "^2.1.1",
